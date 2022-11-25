@@ -1,0 +1,21 @@
+WHAT IS BREEZE
+Laravel Breeze is a minimal, simple implementation of all of Laravel's authentication features, 
+including login, registration, password reset, email verification, and password confirmation. 
+In addition, Breeze includes a simple "profile" page 
+where the user may update their name, email address, and password.
+
+BREEZE OR UI 
+BREZZE offering a more up-to-date version of laravel/ui . 
+It provides the same authentication functionality as laravel/ui , 
+but uses Tailwind instead of Bootstrap, and does not include presets for Vue or React.
+
+// -mrc make also migration and resource
+php artisan make:model -mrc MODEL_NAME
+
+Because we're using a resource controller, 
+we can use a single Route::resource() statement to define all of the routes 
+following a conventional URL structure
+
+The auth middleware ensures that only logged-in users can access the route.
+The verified middleware will be used if you decide to enable email verification.
+
