@@ -1,3 +1,6 @@
+MY NOTES
+____________________________________________
+
 WHAT IS BREEZE
 Laravel Breeze is a minimal, simple implementation of all of Laravel's authentication features, 
 including login, registration, password reset, email verification, and password confirmation. 

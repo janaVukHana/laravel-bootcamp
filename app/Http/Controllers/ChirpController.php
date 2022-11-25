@@ -15,7 +15,14 @@ class ChirpController extends Controller
     public function index()
     {
         // return 'Hello World!';
-        return view('chirps.index');
+
+        // get Chirps from all users
+        // $chirps = Chirp::all(); 
+
+        // I think solution with with('user') is for n + 1 problems
+        $chirps = Chirp::with('user')->latest()->get();
+
+        return view('chirps.index', compact('chirps'));
     }
 
     /**
@@ -36,7 +43,14 @@ class ChirpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formFields = request()->validate([
+            'message' => 'required|string|max:255'
+        ]);
+
+        // dd(auth()->user()->name);   get name of the user
+        auth()->user()->chirps()->create($formFields);
+
+        return back();
     }
 
     /**
