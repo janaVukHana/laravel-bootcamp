@@ -20,6 +20,10 @@ class ChirpController extends Controller
         // $chirps = Chirp::all(); 
 
         // I think solution with with('user') is for n + 1 problems
+        // Eager Loading Multiple Relationships
+        // Sometimes you may need to eager load several different relationships. 
+        // To do so, just pass an array of relationships to the with method:
+        // note: for single different relationship you dont need array. Just do it like down here:
         $chirps = Chirp::with('user')->latest()->get();
 
         return view('chirps.index', compact('chirps'));
@@ -72,7 +76,13 @@ class ChirpController extends Controller
      */
     public function edit(Chirp $chirp)
     {
-        //
+        // Even though we're only displaying the edit button to the author of the Chirp, 
+        // we still need to make sure the user accessing these routes is authorized
+        $this->authorize('update', $chirp);
+        // if I pass User $user instead Chirp $chirp
+        // $this->authorize('update', $user->chirps);
+
+        return view('chirps.edit', compact('chirp'));
     }
 
     /**
@@ -84,7 +94,15 @@ class ChirpController extends Controller
      */
     public function update(Request $request, Chirp $chirp)
     {
-        //
+        $this->authorize('update', $chirp);
+
+        $formFields = request()->validate([
+            'message' => 'required|string|max:255'
+        ]);
+
+        $chirp->update($formFields);
+
+        return back();
     }
 
     /**
@@ -95,6 +113,10 @@ class ChirpController extends Controller
      */
     public function destroy(Chirp $chirp)
     {
-        //
+        $this->authorize('delete', $chirp);
+        
+        $chirp->delete();
+
+        return back();
     }
 }
